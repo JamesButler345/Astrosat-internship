@@ -1,37 +1,37 @@
 <html>
 
-	<head>
+  <head>
 
-   		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 
-   		<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+      <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
-    	<title>
+      <title>
 
-      			Final Project 
+            Final Project 
 
-     	</title>
+      </title>
 
     <body>
 
-   		<div id="mapid"></div>
+      <div id="mapid"></div>
 
-   		<script >
+      <script >
 
-		   	var mymap = L.map('mapid').setView([55.9455, -3.04418], 17);
-		     console.log(mymap)
+        var mymap = L.map('mapid').setView([55.9455, -3.04418], 17);
+         console.log(mymap)
          L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamFtZXNidXRsZXIzNDUiLCJhIjoiY2l6NDl0cGFoMDAzbjJ3cW1xeTV0MDRqaSJ9.Ex2CjF1ECVm6KdJCXB_jCw').addTo(mymap);
 
-   		</script>
+      </script>
 
-    	<style>#mapid { 
+      <style>#mapid { 
 
-    		height: 90%; 
-    		width: 90%; 
-    		margin-left: auto;
-    		margin-right: auto;
+        height: 90%; 
+        width: 90%; 
+        margin-left: auto;
+        margin-right: auto;
 
-    	}
+      }
       </style>
 
       <script>
@@ -105,11 +105,11 @@ var sports = {
 
 
 
-for (var i=0; i < sports.features.length; i++) {
-  console.log(sports.features[i])
-  L.geoJSON(sports.features[i], mySports).addTo(mymap);
+//for (var i=0; i < sports.features.length; i++) {
+  //console.log(sports.features[i])
+  var sportsLeafletLayer = L.geoJSON(sports, mySports);
+  sportsLeafletLayer.addTo(mymap);
 
-}
 
 var education = {
       "type": "FeatureCollection",
@@ -131,11 +131,11 @@ var education = {
       ]
       };
 
-for (var i=0; i < education.features.length; i++) {
-  console.log(education.features[i])
-  L.geoJSON(education.features[i], myEducation).addTo(mymap);
+//for (var i=0; i < education.features.length; i++) {
+  //console.log(education.features[i])
+  var educationLeafletLayer = L.geoJSON(education, myEducation);
+  educationLeafletLayer.addTo(mymap);
 
-}
 
 var boardingHouses = {
       "type": "FeatureCollection",
@@ -159,11 +159,11 @@ var boardingHouses = {
       ]
       };
 
-for (var i=0; i < boardingHouses.features.length; i++) {
-  console.log(boardingHouses.features[i])
-  L.geoJSON(boardingHouses.features[i], myHouses).addTo(mymap);
+//for (var i=0; i < boardingHouses.features.length; i++) {
+  //console.log(boardingHouses.features[i])
+  var boardingHousesLeafletLayer = L.geoJSON(boardingHouses, myHouses);
+  boardingHousesLeafletLayer.addTo(mymap);
 
-}
 
 var chapel = {
       "type": "FeatureCollection",
@@ -173,11 +173,27 @@ var chapel = {
       ]
       };
 
-for (var i=0; i < chapel.features.length; i++) {
-  console.log(chapel.features[i])
-  L.geoJSON(chapel.features[i], myChapel).addTo(mymap);
+//for (var i=0; i < chapel.features.length; i++) {
+  //console.log(chapel.features[i])
+  var chapelLeafletLayer = L.geoJSON(chapel, myChapel);
+  chapelLeafletLayer.addTo(mymap);
 
-}
+
+
+    var classRooms = L.layerGroup([educationLeafletLayer]);
+
+    var sportfacilities = L.layerGroup([sportsLeafletLayer]);
+
+    var houses = L.layerGroup([boardingHousesLeafletLayer]);
+
+    var church = L.layerGroup([chapelLeafletLayer]);
+
+    var baseMaps = {}
+
+    var overlayMaps = {"Sport Facilities": sportfacilities, "Boarding/Day Houses": houses, "Classrooms": classRooms, "Chapel": church};
+
+    L.control.layers(baseMaps, overlayMaps).addTo(mymap);
+
 
   
       </script>
