@@ -1,50 +1,44 @@
 <html>
 
-  <head>
+	<head>
 
-      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+   		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 
-      <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+   		<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
-        <title>
+    	<title>
 
-            GeoJSON in Leaflet
-          
+      			Final Project 
 
-        </title>
+     	</title>
 
     <body>
 
-      <div id="mapid"></div>
+   		<div id="mapid"></div>
 
-      <script > 
+   		<script >
 
-        var mymap = L.map('mapid').setView([55.94457, -3.04518], 17);
-         console.log(mymap)
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-         {
-          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-          maxZoom: 18,
-          })
-           .addTo(mymap);
+		   	var mymap = L.map('mapid').setView([55.9455, -3.04418], 17);
+		     console.log(mymap)
+         L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamFtZXNidXRsZXIzNDUiLCJhIjoiY2l6NDl0cGFoMDAzbjJ3cW1xeTV0MDRqaSJ9.Ex2CjF1ECVm6KdJCXB_jCw').addTo(mymap);
 
-      </script>
+   		</script>
 
-      <style>#mapid { 
+    	<style>#mapid { 
 
-        height: 800px; 
-        width: 90%; 
-        margin-left: auto;
-        margin-right: auto;
-      }
-      
+    		height: 90%; 
+    		width: 90%; 
+    		margin-left: auto;
+    		margin-right: auto;
+
+    	}
       </style>
 
       <script>
         
         var popup = L.popup();
 
-       function onMapClick(e) {
+        function onMapClick(e) {
         popup
           .setLatLng(e.latlng)
           .setContent("You clicked the map at " + e.latlng.toString())
@@ -53,28 +47,27 @@
 
         mymap.on('click', onMapClick);
 
-
-/*var exteriorStyle = {
-    "color": "#ffffff",
-    "weight": 0,
-    "fillOpacity": 0.1
+      var mySports = {
+          "color": "#ff7800",
+          "weight": 5,
+          "opacity": 0.65
+};
+      var myEducation = {
+          "color": "#006600",
+          "weight": 5,
+          "opacity": 0.65
+};
+      var myHouses = {
+          "color": "#66a3ff",
+          "weight": 5,
+          "opacity": 0.65
+};
+      var myChapel = {
+          "color": "#ffffb3",
+          "weight": 5,
+          "opacity": 0.65
 };
 
-
-// set variable equal to features array
-//   loop through each feature
-//    loop through each feature in the array
-//    then execute L.geoJSON( featureElement, myStyle).addTo(mymap)
-
-var exteriorMaskLayer = L.geoJson(states, {style: exteriorStyle}).addTo(mymap);*/  
-
-
-
-var myStyle = {
-    "color": "#ff7800",
-    "weight": 5,
-    "opacity": 0.65
-};
 
 var sports = {
     "type": "FeatureCollection",
@@ -114,7 +107,7 @@ var sports = {
 
 for (var i=0; i < sports.features.length; i++) {
   console.log(sports.features[i])
-  L.geoJSON(sports.features[i], myStyle).addTo(mymap);
+  L.geoJSON(sports.features[i], mySports).addTo(mymap);
 
 }
 
@@ -140,7 +133,7 @@ var education = {
 
 for (var i=0; i < education.features.length; i++) {
   console.log(education.features[i])
-  L.geoJSON(education.features[i], myStyle).addTo(mymap);
+  L.geoJSON(education.features[i], myEducation).addTo(mymap);
 
 }
 
@@ -168,7 +161,7 @@ var boardingHouses = {
 
 for (var i=0; i < boardingHouses.features.length; i++) {
   console.log(boardingHouses.features[i])
-  L.geoJSON(boardingHouses.features[i], myStyle).addTo(mymap);
+  L.geoJSON(boardingHouses.features[i], myHouses).addTo(mymap);
 
 }
 
@@ -182,10 +175,9 @@ var chapel = {
 
 for (var i=0; i < chapel.features.length; i++) {
   console.log(chapel.features[i])
-  L.geoJSON(chapel.features[i], myStyle).addTo(mymap);
+  L.geoJSON(chapel.features[i], myChapel).addTo(mymap);
 
 }
-
 
   
       </script>
